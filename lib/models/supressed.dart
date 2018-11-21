@@ -1,5 +1,4 @@
 class Supressed {
-  String id;
   String line;
   String type;
   String vendor;
@@ -8,7 +7,6 @@ class Supressed {
   int timestamp;
 
   Supressed({
-    this.id,
     this.line,
     this.type,
     this.vendor,
@@ -18,10 +16,10 @@ class Supressed {
   });
 
   String get direction => '$begin > $end';
+  int get time => this.timestamp;
 
   factory Supressed.fromJson(Map<String, dynamic> map) {
     return new Supressed(
-      id: map['id'],
       line: map['line'],
       type: map['type'],
       vendor: map['vendor'],
