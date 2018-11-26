@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:timeago/timeago.dart' as timeago;
 
-import 'package:suprimidospt/pages/home_page.dart';
 import 'package:suprimidospt/constants/locations.dart';
 import 'package:suprimidospt/models/supressed.dart';
 import 'package:suprimidospt/constants/endpoints.dart';
@@ -11,21 +10,11 @@ import 'package:suprimidospt/constants/endpoints.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  final Map<String, WidgetBuilder> routes = {};
-
   @override
   Widget build(BuildContext context) {
-    locations.forEach((location) {
-      routes['/${location['key']}'] = (_) => new HomePage(
-            locationTitle: location['value'],
-            location: location['key'],
-          );
-    });
-
     return MaterialApp(
       title: 'Suprimidos',
       home: App(),
-      routes: routes,
       debugShowCheckedModeBanner: false,
     );
   }

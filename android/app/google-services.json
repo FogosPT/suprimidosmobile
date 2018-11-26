@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "741950318441",
+    "firebase_url": "https://suprimidos-95969.firebaseio.com",
+    "project_id": "suprimidos-95969",
+    "storage_bucket": "suprimidos-95969.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:741950318441:android:1012ebfcb95757a2",
+        "android_client_info": {
+          "package_name": "com.tomahock.suprimidos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "741950318441-ptt1blglf97291d3b72srbqds3dqjshl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKxlYI6Va2DqEiGDODMGlgBIGDST72Qf8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
