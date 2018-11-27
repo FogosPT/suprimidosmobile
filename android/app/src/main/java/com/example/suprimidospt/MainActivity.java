@@ -1,4 +1,4 @@
-package com.example.suprimidospt;
+package com.tomahock.suprimidos;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;

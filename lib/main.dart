@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'dart:io';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:timeago/timeago.dart' as timeago;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:suprimidospt/constants/locations.dart';
 import 'package:suprimidospt/models/supressed.dart';
 import 'package:suprimidospt/constants/endpoints.dart';
+import 'package:suprimidospt/pages/settings.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,10 +17,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Suprimidos',
-      home: App(),
-      debugShowCheckedModeBanner: false,
-    );
+        title: 'Suprimidos',
+        home: App(),
+        debugShowCheckedModeBanner: false,
+        routes: {
+          '/settings': (_) => Settings(),
+        });
   }
 }
 
@@ -35,9 +41,71 @@ class Home extends StatefulWidget {
 }
 
 class HomeState extends State<Home> {
+  FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  @override
+  void initState() {
+    super.initState();
+    firebaseCloudMessagingListeners();
+    _getListItems();
+  }
+
+  void firebaseCloudMessagingListeners() {
+    if (Platform.isIOS) iOSPermission();
+
+    _firebaseMessaging.getToken().then((token) {
+      print('token');
+      print(token);
+    });
+
+    _firebaseMessaging.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        print('on message $message');
+      },
+      onResume: (Map<String, dynamic> message) async {
+        print('on resume $message');
+      },
+      onLaunch: (Map<String, dynamic> message) async {
+        print('on launch $message');
+      },
+    );
+  }
+
+  void iOSPermission() {
+    _firebaseMessaging.requestNotificationPermissions(
+        IosNotificationSettings(sound: true, badge: true, alert: true));
+    _firebaseMessaging.onIosSettingsRegistered
+        .listen((IosNotificationSettings settings) {
+      print("Settings registered: $settings");
+    });
+  }
+
+  void iOSSubscribeToTopics() async {
+    final SharedPreferences prefs = await _prefs;
+    for (Map location in locations) {
+      String line = location['key'];
+      bool _pref = prefs.getBool(line);
+      if (_pref) {
+        print('iOS subscribing to $line');
+        _firebaseMessaging.subscribeToTopic('mobile-ios-$line');
+      }
+    }
+  }
+
+  void androidSubscribeToTopics() async {
+    final SharedPreferences prefs = await _prefs;
+    for (Map location in locations) {
+      String line = location['key'];
+      bool _pref = prefs.getBool(line);
+      if (_pref) {
+        print('Android subscribing to $line');
+        _firebaseMessaging.subscribeToTopic('mobile-android-$line');
+      }
+    }
+  }
+
   List list = [];
   bool _isLoaded = false;
-  bool _firstLoaded = false;
 
   _getListItems() async {
     list.clear();
@@ -86,9 +154,10 @@ class HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    if (!_firstLoaded) {
-      _firstLoaded = true;
-      _getListItems();
+    if (Platform.isIOS) {
+      iOSSubscribeToTopics();
+    } else {
+      androidSubscribeToTopics();
     }
 
     timeago.setLocaleMessages('pt_BR', timeago.PtBrMessages());
@@ -106,7 +175,13 @@ class HomeState extends State<Home> {
             onPressed: () {
               _getListItems();
             },
-          )
+          ),
+          IconButton(
+            icon: Icon(Icons.settings, color: Color(0xFFe9ecef)),
+            onPressed: () {
+              Navigator.of(context).pushNamed('/settings');
+            },
+          ),
         ],
       ),
       body: _isLoaded ? _getBody() : Center(child: CircularProgressIndicator()),
