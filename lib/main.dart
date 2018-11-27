@@ -141,42 +141,38 @@ class HomeState extends State<Home> {
   }
 
   _getBody() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 12.0),
-      child: ListView.builder(
-        itemCount: list.length,
-        itemBuilder: (BuildContext context, index) {
-          return ListTile(
-            title: Column(
-              children: [
-                Text(
-                  'de ${list[index].begin}',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
+    return ListView.builder(
+      itemCount: list.length,
+      itemBuilder: (BuildContext context, index) {
+        return ListTile(
+          title: Column(
+            children: [
+              Text(
+                'de ${list[index].begin}',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
                 ),
-                Text(
-                  'até ${list[index].end}',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(locationNames[list[index].line]),
-              ],
-              crossAxisAlignment: CrossAxisAlignment.start,
-            ),
-            trailing: Text(list[index].vendor),
-            isThreeLine: false,
-            subtitle: Text(
-              timeago.format(
-                DateTime.fromMillisecondsSinceEpoch(
-                    list[index].timestamp * 1000),
-                locale: 'pt_BR',
               ),
+              Text(
+                'até ${list[index].end}',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(locationNames[list[index].line]),
+            ],
+            crossAxisAlignment: CrossAxisAlignment.start,
+          ),
+          trailing: Text(list[index].vendor),
+          isThreeLine: false,
+          subtitle: Text(
+            timeago.format(
+              DateTime.fromMillisecondsSinceEpoch(list[index].timestamp * 1000),
+              locale: 'pt_BR',
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 
