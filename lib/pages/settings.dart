@@ -22,6 +22,9 @@ class _SettingsState extends State<Settings> {
         return (prefs.getBool(location['key']) ?? false);
       });
     }
+    settings['all'] = _prefs.then((SharedPreferences prefs) {
+      return (prefs.getBool('all') ?? false);
+    });
   }
 
   _handleChange(key, bool value) async {
@@ -31,11 +34,42 @@ class _SettingsState extends State<Settings> {
       return (prefs.getBool(key) ?? value);
     });
 
+    if (key == 'all') {
+      for (Map location in locations) {
+        prefs.setBool(location['key'], value);
+        settings[location['key']] = _prefs.then((SharedPreferences prefs) {
+          return value;
+        });
+      }
+    }
+
     setState(() {});
   }
 
   List<Widget> _buildCheckboxes() {
     List<Widget> checkboxes = [];
+    checkboxes.add(
+      FutureBuilder(
+        future: settings['all'],
+        builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+          switch (snapshot.connectionState) {
+            default:
+              return CheckboxListTile(
+                title: Text(
+                  'Todas',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                value: snapshot.data ?? false,
+                onChanged: (bool value) {
+                  _handleChange('all', value);
+                },
+              );
+          }
+        },
+      ),
+    );
+
+    checkboxes.add(Divider());
     for (Map location in locations) {
       checkboxes.add(
         FutureBuilder(
@@ -45,7 +79,7 @@ class _SettingsState extends State<Settings> {
               default:
                 return CheckboxListTile(
                   title: Text(location['value']),
-                  value: snapshot.data ?? true,
+                  value: snapshot.data ?? false,
                   onChanged: (bool value) {
                     _handleChange(location['key'], value);
                   },

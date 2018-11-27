@@ -25,3 +25,31 @@ List locations = [
   {"key": "soporcel", "value": "Soporcel"},
   {"key": "tomar", "value": "Tomar"},
 ];
+
+Map locationNames = {
+  "algarve": "Algarve",
+  "areia": "Areia",
+  "aveiro": "Aveiro",
+  "beiraAlta": "Beira Alta",
+  "beiraBaixa": "Beira Baixa",
+  "braga": "Braga",
+  "carga": "Carga",
+  "carvao": "Carvão",
+  "casaBranca": "Casa Branca",
+  "cascais": "Cascais",
+  "cimento": "Cimento",
+  "cintura": "Cintura",
+  "douro": "Douro",
+  "especial": "Especial",
+  "evora": "Évora",
+  "fertagus": "Fertagus",
+  "guimaraes": "Guimarães",
+  "madeira": "Madeira",
+  "minho": "Minho",
+  "norte": "Norte",
+  "oeste": "Oeste",
+  "sado": "Sado",
+  "sintra": "Sintra",
+  "soporcel": "Soporcel",
+  "tomar": "Tomar"
+};

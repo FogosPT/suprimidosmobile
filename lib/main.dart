@@ -85,7 +85,7 @@ class HomeState extends State<Home> {
     for (Map location in locations) {
       String line = location['key'];
       bool _pref = prefs.getBool(line);
-      if (_pref) {
+      if (_pref == true) {
         print('iOS subscribing to $line');
         _firebaseMessaging.subscribeToTopic('mobile-ios-$line');
       }
@@ -97,11 +97,19 @@ class HomeState extends State<Home> {
     for (Map location in locations) {
       String line = location['key'];
       bool _pref = prefs.getBool(line);
-      if (_pref) {
+      if (_pref == true) {
         print('Android subscribing to $line');
         _firebaseMessaging.subscribeToTopic('mobile-android-$line');
       }
     }
+  }
+
+  void openSnackBar(String message) {
+    final SnackBar snackbar = SnackBar(
+      content: Text(message),
+    );
+
+    Scaffold.of(context).showSnackBar(snackbar);
   }
 
   List list = [];
@@ -110,7 +118,6 @@ class HomeState extends State<Home> {
   _getListItems() async {
     list.clear();
     _isLoaded = false;
-    setState(() {});
     for (Map location in locations) {
       String url = '${endpoints['getSupressedEndpoint']}${location['key']}';
       final response = await http.get(url);
@@ -118,37 +125,58 @@ class HomeState extends State<Home> {
       if (responseData != null) {
         final data = [responseData];
         list.addAll(data.map((model) => Supressed.fromJson(model)));
+        list.sort((a, b) {
+          if (a.time < b.time) {
+            return 1;
+          } else if (a.time > b.time) {
+            return -1;
+          } else {
+            return 0;
+          }
+        });
+        _isLoaded = true;
+        setState(() {});
       }
     }
-    list.sort((a, b) {
-      if (a.time < b.time) {
-        return 1;
-      } else if (a.time > b.time) {
-        return -1;
-      } else {
-        return 0;
-      }
-    });
-    _isLoaded = true;
-    setState(() {});
   }
 
   _getBody() {
-    return ListView.builder(
-      itemCount: list.length,
-      itemBuilder: (BuildContext context, index) {
-        return ListTile(
-          title: Text(list[index].direction),
-          subtitle: Text(list[index].vendor),
-          isThreeLine: true,
-          trailing: Text(
-            timeago.format(
-              DateTime.fromMillisecondsSinceEpoch(list[index].timestamp * 1000),
-              locale: 'pt_BR',
+    return Padding(
+      padding: const EdgeInsets.only(top: 12.0),
+      child: ListView.builder(
+        itemCount: list.length,
+        itemBuilder: (BuildContext context, index) {
+          return ListTile(
+            title: Column(
+              children: [
+                Text(
+                  'de ${list[index].begin}',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  'até ${list[index].end}',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(locationNames[list[index].line]),
+              ],
+              crossAxisAlignment: CrossAxisAlignment.start,
             ),
-          ),
-        );
-      },
+            trailing: Text(list[index].vendor),
+            isThreeLine: false,
+            subtitle: Text(
+              timeago.format(
+                DateTime.fromMillisecondsSinceEpoch(
+                    list[index].timestamp * 1000),
+                locale: 'pt_BR',
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 
