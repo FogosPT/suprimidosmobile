@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:suprimidospt/constants/locations.dart';
 
 class Line extends StatefulWidget {
-  String line;
-  Line({this.line});
+  final String line;
+  Line({@required this.line});
   _LineState createState() => _LineState();
 }
 
