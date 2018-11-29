@@ -19,11 +19,11 @@ class _SettingsState extends State<Settings> {
     super.initState();
     for (Map location in locations) {
       settings[location['key']] = _prefs.then((SharedPreferences prefs) {
-        return (prefs.getBool(location['key']) ?? false);
+        return (prefs.getBool(location['key']) ?? true);
       });
     }
     settings['all'] = _prefs.then((SharedPreferences prefs) {
-      return (prefs.getBool('all') ?? false);
+      return (prefs.getBool('all') ?? true);
     });
   }
 
