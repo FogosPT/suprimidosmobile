@@ -1,4 +1,5 @@
 Map endpoints = {
-  'getSupressedEndpoint':
-      'https://tomahock.com/cenas/suprimidos/data.php?line=',
+  'supressedEndpoint': 'https://tomahock.com/cenas/suprimidos/data.php?line=',
+  'delayedEndpoint':
+      'https://tomahock.com/cenas/suprimidos/data.php?lineDelay=',
 };
