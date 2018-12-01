@@ -11,8 +11,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Suprimidos',
+      title: 'Suprimidos.pt',
       home: App(),
+      theme: ThemeData(
+        brightness: Brightness.light,
+        primaryColor: Colors.grey[600],
+        accentColor: Colors.blueGrey[600],
+      ),
       debugShowCheckedModeBanner: false,
       routes: {
         '/settings': (_) => Settings(),

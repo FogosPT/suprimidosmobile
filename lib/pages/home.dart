@@ -221,11 +221,6 @@ class HomeState extends State<Home> {
               ),
             ),
             ListTile(
-              title: Text('Suprimidos'),
-              leading: Icon(Icons.block),
-              onTap: () {},
-            ),
-            ListTile(
               title: Text('Atrasos'),
               leading: Icon(Icons.watch),
               onTap: () {

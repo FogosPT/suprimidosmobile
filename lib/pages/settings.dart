@@ -41,6 +41,26 @@ class _SettingsState extends State<Settings> {
           return value;
         });
       }
+    } else {
+      if (value == false) {
+        prefs.setBool('all', value);
+        settings['all'] = _prefs.then((SharedPreferences prefs) {
+          return value;
+        });
+      } else {
+        bool _allChecked = true;
+        for (Map location in locations) {
+          if (!prefs.getBool(location['key'])) {
+            if (_allChecked) {
+              _allChecked = false;
+            }
+          }
+        }
+        settings['all'] = _prefs.then((SharedPreferences prefs) {
+          return _allChecked;
+        });
+        prefs.setBool('all', _allChecked);
+      }
     }
 
     setState(() {});
