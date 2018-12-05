@@ -4,6 +4,8 @@ class Supressed {
   String vendor;
   String begin;
   String end;
+  String startTime;
+  String endTime;
   int timestamp;
 
   Supressed({
@@ -13,6 +15,8 @@ class Supressed {
     this.begin,
     this.end,
     this.timestamp,
+    this.startTime,
+    this.endTime,
   });
 
   String get direction => '$begin > $end';
@@ -26,6 +30,8 @@ class Supressed {
       begin: map['begin'],
       end: map['end'],
       timestamp: map['timestamp'],
+      startTime: map['startTime'],
+      endTime: map['endTime'],
     );
   }
 }
