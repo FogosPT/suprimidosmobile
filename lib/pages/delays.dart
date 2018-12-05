@@ -92,10 +92,7 @@ class _DelaysState extends State<Delays> {
                   locale: 'pt_BR',
                 ),
           ),
-          onTap: () {
-            Navigator.of(context)
-                .pushNamed('/line/${list[index].line}/delayed');
-          },
+          onTap: () {},
         );
       },
     );
