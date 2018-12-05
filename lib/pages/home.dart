@@ -60,6 +60,8 @@ class HomeState extends State<Home> {
       bool _pref = prefs.getBool(line);
       if (_pref == true || _pref == null) {
         _firebaseMessaging.subscribeToTopic('mobile-ios-$line');
+      } else {
+        _firebaseMessaging.unsubscribeFromTopic('mobile-ios-$line');
       }
     }
   }
@@ -71,6 +73,8 @@ class HomeState extends State<Home> {
       bool _pref = prefs.getBool(line);
       if (_pref == true || _pref == null) {
         _firebaseMessaging.subscribeToTopic('mobile-android-$line');
+      } else {
+        _firebaseMessaging.unsubscribeFromTopic('mobile-android-$line');
       }
     }
   }
