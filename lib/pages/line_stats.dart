@@ -101,8 +101,7 @@ class _LineStatsState extends State<LineStats> {
 
   @override
   Widget build(BuildContext context) {
-    final String title =
-        '${locationNames[widget.line]}: ${(widget.type == 'supressed' ? 'Suprimidos' : 'Atrasos')}';
+    final String title = '${locationNames[widget.line]}: Últimos 30 dias';
 
     return Scaffold(
       appBar: AppBar(
