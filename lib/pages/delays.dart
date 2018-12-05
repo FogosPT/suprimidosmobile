@@ -93,7 +93,8 @@ class _DelaysState extends State<Delays> {
                 ),
           ),
           onTap: () {
-            Navigator.of(context).pushNamed('/line/${list[index].line}');
+            Navigator.of(context)
+                .pushNamed('/line/${list[index].line}/delayed');
           },
         );
       },

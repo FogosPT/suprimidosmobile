@@ -50,9 +50,7 @@ class HomeState extends State<Home> {
     _firebaseMessaging.requestNotificationPermissions(
         IosNotificationSettings(sound: true, badge: true, alert: true));
     _firebaseMessaging.onIosSettingsRegistered
-        .listen((IosNotificationSettings settings) {
-      print("Settings registered: $settings");
-    });
+        .listen((IosNotificationSettings settings) {});
   }
 
   void iOSSubscribeToTopics() async {
@@ -61,7 +59,6 @@ class HomeState extends State<Home> {
       String line = location['key'];
       bool _pref = prefs.getBool(line);
       if (_pref == true || _pref == null) {
-        print('iOS subscribing to $line');
         _firebaseMessaging.subscribeToTopic('mobile-ios-$line');
       }
     }
@@ -73,7 +70,6 @@ class HomeState extends State<Home> {
       String line = location['key'];
       bool _pref = prefs.getBool(line);
       if (_pref == true || _pref == null) {
-        print('Android subscribing to $line');
         _firebaseMessaging.subscribeToTopic('mobile-android-$line');
       }
     }
@@ -126,17 +122,28 @@ class HomeState extends State<Home> {
     return ListView.builder(
       itemCount: list.length,
       itemBuilder: (BuildContext context, index) {
+        String _thisStart = 'de ${list[index].begin}';
+        String _thisEnd = 'até ${list[index].end}';
+
+        if (list[index].startTime != null) {
+          _thisStart = _thisStart + ' (${list[index].startTime.trim()})';
+        }
+
+        if (list[index].endTime != null) {
+          _thisEnd = _thisEnd + ' (${list[index].endTime.trim()})';
+        }
+
         return ListTile(
           title: Column(
             children: <Widget>[
               Text(
-                'de ${list[index].begin}',
+                _thisStart,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
               ),
               Text(
-                'até ${list[index].end}',
+                _thisEnd,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
@@ -156,7 +163,8 @@ class HomeState extends State<Home> {
                 ),
           ),
           onTap: () {
-            Navigator.of(context).pushNamed('/line/${list[index].line}');
+            Navigator.of(context)
+                .pushNamed('/line/${list[index].line}/supressed');
           },
         );
       },
