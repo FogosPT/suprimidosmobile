@@ -222,11 +222,17 @@ class HomeState extends State<Home> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  Icon(Icons.block),
-                  Text(
-                    'Suprimidos.pt',
-                    style: TextStyle(
-                      fontSize: 24.0,
+                  Hero(
+                    tag: 'logo',
+                    child: Center(
+                      child: ConstrainedBox(
+                        child: Image.asset('assets/logo.png'),
+                        constraints: BoxConstraints.tight(
+                          Size.square(
+                            100.0,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ],
@@ -247,6 +253,15 @@ class HomeState extends State<Home> {
               onTap: () {
                 Navigator.of(context).pop();
                 Navigator.of(context).pushNamed('/settings');
+              },
+            ),
+            Divider(),
+            ListTile(
+              title: Text('Sobre'),
+              leading: Icon(Icons.info),
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pushNamed('/about');
               },
             ),
           ],

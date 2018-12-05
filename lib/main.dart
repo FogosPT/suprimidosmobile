@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:suprimidospt/pages/home.dart';
 import 'package:suprimidospt/pages/settings.dart';
 import 'package:suprimidospt/pages/delays.dart';
+import 'package:suprimidospt/pages/about.dart';
 import 'package:suprimidospt/pages/line.dart';
 import 'package:suprimidospt/pages/line_stats.dart';
 
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/settings': (_) => Settings(),
         '/delays': (_) => Delays(),
+        '/about': (_) => About(),
       },
       onGenerateRoute: _getRoute,
     );
