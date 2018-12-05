@@ -41,7 +41,10 @@ Route<dynamic> _getRoute(RouteSettings settings) {
   if (path[1] == 'line') {
     return new MaterialPageRoute<void>(
       settings: settings,
-      builder: (BuildContext context) => Line(line: path[2]),
+      builder: (BuildContext context) => Line(
+            line: path[2],
+            type: path[3],
+          ),
     );
   }
   return null;
