@@ -5,6 +5,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class About extends StatelessWidget {
   final Map people = {
     'project': 'https://github.com/fogospt/suprimidosmobile',
+    'projectTwitter': 'https://twitter.com/SuprimidosPT',
+    'projectSite': 'https://suprimidos.pt',
     'guilherme': 'https://twitter.com/theoneguilherme',
     'jorge': 'https://twitter.com/jandresaco',
     'ricardo': 'https://github.com/ricardojrgpimentel',
@@ -76,11 +78,28 @@ class About extends StatelessWidget {
               ),
             ),
           ),
-          IconButton(
-            icon: Icon(FontAwesomeIcons.github),
-            onPressed: () {
-              _openLink('project');
-            },
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              IconButton(
+                icon: Icon(FontAwesomeIcons.globe),
+                onPressed: () {
+                  _openLink('projectSite');
+                },
+              ),
+              IconButton(
+                icon: Icon(FontAwesomeIcons.twitter),
+                onPressed: () {
+                  _openLink('projectTwitter');
+                },
+              ),
+              IconButton(
+                icon: Icon(FontAwesomeIcons.github),
+                onPressed: () {
+                  _openLink('project');
+                },
+              ),
+            ],
           ),
           Divider(),
           Padding(
