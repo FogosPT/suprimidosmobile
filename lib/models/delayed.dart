@@ -6,6 +6,7 @@ class Delayed {
   String end;
   int min;
   int max;
+  int delay;
   int timestamp;
 
   Delayed({
@@ -16,6 +17,7 @@ class Delayed {
     this.end,
     this.min,
     this.max,
+    this.delay,
     this.timestamp,
   });
 
@@ -31,6 +33,7 @@ class Delayed {
       end: map['end'],
       min: map['min'],
       max: map['max'],
+      delay: map['delay'],
       timestamp: map['timestamp'],
     );
   }

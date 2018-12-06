@@ -85,12 +85,7 @@ class _DelaysState extends State<Delays> {
           trailing: Text(list[index].vendor),
           isThreeLine: false,
           subtitle: Text(
-            'Atrasado ' +
-                timeago.format(
-                  DateTime.fromMillisecondsSinceEpoch(
-                      list[index].timestamp * 1000),
-                  locale: 'pt_BR',
-                ),
+            'Atrasado ${list[index].delay} minutos',
           ),
           onTap: () {},
         );
