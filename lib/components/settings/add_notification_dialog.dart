@@ -22,6 +22,61 @@ class _AddNotificationDialogState extends State<AddNotificationDialog> {
     }).toList();
   }
 
+  _onChangeLocation(location) {
+    setState(() {
+      _selectedLocation = location;
+    });
+  }
+
+  _onChangeStartTime(hour) {
+    if (_selectedEndHour != null) {
+      if (_selectedEndHour < hour) {
+        int _highest = hour;
+        int _lowest = _selectedEndHour;
+
+        setState(() {
+          _selectedStartHour = _lowest;
+          _selectedEndHour = _highest;
+        });
+      } else {
+        setState(() {
+          _selectedStartHour = hour;
+        });
+      }
+    } else {
+      setState(() {
+        _selectedStartHour = hour;
+      });
+    }
+  }
+
+  _onChangeEndTime(hour) {
+    if (_selectedStartHour != null) {
+      if (_selectedStartHour > hour) {
+        int _highest = _selectedStartHour;
+        int _lowest = hour;
+
+        setState(() {
+          _selectedStartHour = _lowest;
+          _selectedEndHour = _highest;
+        });
+      } else {
+        setState(() {
+          _selectedEndHour = hour;
+        });
+      }
+    } else {
+      setState(() {
+        _selectedEndHour = hour;
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -38,15 +93,11 @@ class _AddNotificationDialogState extends State<AddNotificationDialog> {
                 DropdownButtonHideUnderline(
                   child: DropdownButton(
                     value: _selectedLocation,
-                    onChanged: (location) {
-                      setState(() {
-                        _selectedLocation = location;
-                      });
-                    },
+                    onChanged: _onChangeLocation,
                     items: locations.map((location) {
                       return DropdownMenuItem<String>(
                         value: location['key'],
-                        child: Text(location['value']),
+                        child: Text('Linha de ${location['value']}'),
                       );
                     }).toList(),
                   ),
@@ -65,11 +116,7 @@ class _AddNotificationDialogState extends State<AddNotificationDialog> {
                 DropdownButtonHideUnderline(
                   child: DropdownButton(
                     value: _selectedStartHour,
-                    onChanged: (hour) {
-                      setState(() {
-                        _selectedStartHour = hour;
-                      });
-                    },
+                    onChanged: _onChangeStartTime,
                     items: _getHoursDropdownItems(),
                   ),
                 ),
@@ -80,11 +127,7 @@ class _AddNotificationDialogState extends State<AddNotificationDialog> {
                 DropdownButtonHideUnderline(
                   child: DropdownButton(
                     value: _selectedEndHour,
-                    onChanged: (hour) {
-                      setState(() {
-                        _selectedEndHour = hour;
-                      });
-                    },
+                    onChanged: _onChangeEndTime,
                     items: _getHoursDropdownItems(),
                   ),
                 ),
@@ -103,7 +146,12 @@ class _AddNotificationDialogState extends State<AddNotificationDialog> {
         new FlatButton(
           child: new Text("ADICIONAR"),
           onPressed: () {
-            widget.onAdd(_selectedLocation);
+            widget.onAdd(
+              _selectedLocation,
+              _selectedStartHour,
+              _selectedEndHour,
+            );
+            Navigator.of(context).pop();
           },
         ),
       ],

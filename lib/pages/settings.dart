@@ -21,8 +21,8 @@ class _SettingsState extends State<Settings> {
     print(card);
   }
 
-  _onAdd(location) {
-    print('add notification for $location');
+  _onAdd(location, start, end) {
+    print('add notification for $location, $start, $end');
   }
 
   _addCardFormOpen() {
