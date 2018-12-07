@@ -117,7 +117,7 @@ class _SettingsState extends State<Settings> {
     return Scaffold(
       appBar: AppBar(
         title: new Text(
-          'Preferências',
+          'Notificações',
           style: TextStyle(color: Color(0xFFe9ecef)),
         ),
         backgroundColor: Color(0xFF343a40),

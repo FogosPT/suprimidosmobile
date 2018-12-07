@@ -248,7 +248,7 @@ class HomeState extends State<Home> {
             ),
             Divider(),
             ListTile(
-              title: Text('Preferências'),
+              title: Text('Notificações'),
               leading: Icon(Icons.settings),
               onTap: () {
                 Navigator.of(context).pop();
