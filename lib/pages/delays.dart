@@ -55,7 +55,11 @@ class _DelaysState extends State<Delays> {
       _isLoaded = true;
       _hasError = true;
       _errorMessage = 'Ocorreu um erro. Por favor tenta novamente.';
-      setState(() {});
+
+      // Necessary to check ´mounted´ to avoid accessing the widget after disposed
+      if (this.mounted) {
+        setState(() {});
+      }
     }
   }
 
