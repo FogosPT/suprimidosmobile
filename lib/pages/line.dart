@@ -116,12 +116,24 @@ class _LineState extends State<Line> {
         ),
         backgroundColor: Color(0xFF343a40),
         actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.calendar_today),
-            onPressed: () {
-              Navigator.of(context).pushNamed('/line/${widget.line}/stats');
-            },
-          ),
+          Container(
+            child: _isLoaded
+                ? IconButton(
+                    icon: Icon(Icons.calendar_today),
+                    onPressed: () {
+                      Navigator.of(context)
+                          .pushNamed('/line/${widget.line}/stats');
+                    },
+                  )
+                : Center(
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 16.0),
+                      child: CircularProgressIndicator(
+                        strokeWidth: 3.0,
+                      ),
+                    ),
+                  ),
+          )
         ],
       ),
       body: list.length > 0

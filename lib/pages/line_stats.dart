@@ -47,7 +47,6 @@ class _LineStatsState extends State<LineStats> {
             return 0;
           }
         });
-        setState(() {});
       }
       _isLoaded = true;
       _hasError = false;
@@ -110,6 +109,7 @@ class _LineStatsState extends State<LineStats> {
           style: TextStyle(color: Color(0xFFe9ecef)),
         ),
         backgroundColor: Color(0xFF343a40),
+        actions: <Widget>[_showLoading(_isLoaded)],
       ),
       body: list.length > 0
           ? _getBody()
@@ -117,6 +117,21 @@ class _LineStatsState extends State<LineStats> {
               child:
                   _hasError ? Text(_errorMessage) : CircularProgressIndicator(),
             ),
+    );
+  }
+}
+
+Widget _showLoading(isLoaded) {
+  if (isLoaded) {
+    return Container();
+  } else {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.only(right: 16.0),
+        child: CircularProgressIndicator(
+          strokeWidth: 3.0,
+        ),
+      ),
     );
   }
 }

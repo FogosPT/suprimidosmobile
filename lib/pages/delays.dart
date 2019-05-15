@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'dart:io';
-import 'package:timeago/timeago.dart' as timeago;
 
 import 'package:suprimidospt/constants/locations.dart';
 import 'package:suprimidospt/constants/endpoints.dart';
