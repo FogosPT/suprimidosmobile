@@ -137,39 +137,61 @@ class HomeState extends State<Home> {
           _thisEnd = _thisEnd + ' (${list[index].endTime.trim()})';
         }
 
-        return ListTile(
-          title: Column(
-            children: <Widget>[
-              Text(
-                _thisStart,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
+        MaterialColor _color = Colors.grey;
+        bool _selected = false;
+
+        if (list[index].vendor == 'FERTAGUS') {
+          _color = Colors.red;
+          _selected = true;
+        }
+
+        if (list[index].vendor == 'SOFLUSA') {
+          _color = Colors.blue;
+          _selected = true;
+        }
+
+        if (list[index].vendor.startsWith('CP')) {
+          _color = Colors.green;
+          _selected = true;
+        }
+
+        return ListTileTheme(
+          selectedColor: _color,
+          child: ListTile(
+            selected: _selected,
+            title: Column(
+              children: <Widget>[
+                Text(
+                  _thisStart,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              Text(
-                _thisEnd,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
+                Text(
+                  _thisEnd,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              Text(locationNames[list[index].line]),
-            ],
-            crossAxisAlignment: CrossAxisAlignment.start,
+                Text(locationNames[list[index].line]),
+              ],
+              crossAxisAlignment: CrossAxisAlignment.start,
+            ),
+            trailing: Text(list[index].vendor),
+            isThreeLine: false,
+            subtitle: Text(
+              'Suprimido ' +
+                  timeago.format(
+                    DateTime.fromMillisecondsSinceEpoch(
+                        list[index].timestamp * 1000),
+                    locale: 'pt_BR',
+                  ),
+            ),
+            onTap: () {
+              Navigator.of(context)
+                  .pushNamed('/line/${list[index].line}/supressed');
+            },
           ),
-          trailing: Text(list[index].vendor),
-          isThreeLine: false,
-          subtitle: Text(
-            'Suprimido ' +
-                timeago.format(
-                  DateTime.fromMillisecondsSinceEpoch(
-                      list[index].timestamp * 1000),
-                  locale: 'pt_BR',
-                ),
-          ),
-          onTap: () {
-            Navigator.of(context)
-                .pushNamed('/line/${list[index].line}/supressed');
-          },
         );
       },
     );

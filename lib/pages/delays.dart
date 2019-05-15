@@ -63,31 +63,53 @@ class _DelaysState extends State<Delays> {
     return ListView.builder(
       itemCount: list.length,
       itemBuilder: (BuildContext context, index) {
-        return ListTile(
-          title: Column(
-            children: <Widget>[
-              Text(
-                'de ${list[index].begin}',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
+        MaterialColor _color = Colors.grey;
+        bool _selected = false;
+
+        if (list[index].vendor == 'FERTAGUS') {
+          _color = Colors.red;
+          _selected = true;
+        }
+
+        if (list[index].vendor == 'SOFLUSA') {
+          _color = Colors.blue;
+          _selected = true;
+        }
+
+        if (list[index].vendor.startsWith('CP')) {
+          _color = Colors.green;
+          _selected = true;
+        }
+
+        return ListTileTheme(
+          selectedColor: _color,
+          child: ListTile(
+            selected: _selected,
+            title: Column(
+              children: <Widget>[
+                Text(
+                  'de ${list[index].begin}',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              Text(
-                'até ${list[index].end}',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
+                Text(
+                  'até ${list[index].end}',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              Text(locationNames[list[index].line]),
-            ],
-            crossAxisAlignment: CrossAxisAlignment.start,
+                Text(locationNames[list[index].line]),
+              ],
+              crossAxisAlignment: CrossAxisAlignment.start,
+            ),
+            trailing: Text(list[index].vendor),
+            isThreeLine: false,
+            subtitle: Text(
+              'Atrasado ${list[index].delay} minutos',
+            ),
+            onTap: () {},
           ),
-          trailing: Text(list[index].vendor),
-          isThreeLine: false,
-          subtitle: Text(
-            'Atrasado ${list[index].delay} minutos',
-          ),
-          onTap: () {},
         );
       },
     );

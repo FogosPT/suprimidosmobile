@@ -18,6 +18,15 @@ List locations = [
   {"key": "sado", "value": "Sado"},
   {"key": "sintra", "value": "Sintra"},
   {"key": "tomar", "value": "Tomar"},
+  {"key": "barreiro", "value": "Barreiro"},
+  {"key": "belem", "value": "Belém"},
+  {"key": "cacilhas", "value": "Cacilhas"},
+  {"key": "caisDoSodre", "value": "Cais do Sodré"},
+  {"key": "montijo", "value": "Montijo"},
+  {"key": "brandao", "value": "Brandão"},
+  {"key": "seixal", "value": "Seixal"},
+  {"key": "terreiroDoPaco", "value": "Terreiro do Paço"},
+  {"key": "trafaria", "value": "Trafaria"}
 ];
 
 Map locationNames = {
@@ -45,5 +54,14 @@ Map locationNames = {
   "sado": "Sado",
   "sintra": "Sintra",
   "soporcel": "Soporcel",
-  "tomar": "Tomar"
+  "tomar": "Tomar",
+  "barreiro": "Barreiro",
+  "belem": "Belém",
+  "cacilhas": "Cacilhas",
+  "caisDoSodre": "Cais do Sodré",
+  "montijo": "Montijo",
+  "brandao": "Brandão",
+  "seixal": "Seixal",
+  "terreiroDoPaco": "Terreiro do Paço",
+  "trafaria": "Trafaria"
 };
